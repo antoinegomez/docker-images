@@ -1,5 +1,18 @@
 # Docker images
 
+## nginx
+
+### php-single-vhost
+
+This image is meant to be used with one php application.
+
+Two ENV variables allows you to setup the root directory and host.
+
+```
+PHP_PUBLIC_DIR: /app
+PHP_HOST: app
+```
+
 ## nodejs
 
 ### node-alpine-build
