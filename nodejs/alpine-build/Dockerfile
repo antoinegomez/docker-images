@@ -26,4 +26,4 @@ apk add --no-cache build-base \
                    groff
 RUN pip install awscli
 RUN rm /var/cache/apk/*
-RUN npm i -G serverless
+RUN npm i -g serverless
