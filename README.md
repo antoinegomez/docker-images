@@ -15,13 +15,20 @@ PHP_HOST: app
 
 ## nodejs
 
-### node-alpine-build
+### alpine-build
 
 Used to build nodejs project.
 
-Contains build base, git, bash, openssh, python, mysql-client, redis ...
+Contains build base, git, bash, openssh, python, mysql-client, redis plus many other stuff required to build nodejs projects.
+Also have AWS Cli and serverless installed.
 
-Using latest nodejs LTS image when updating this repo that is compatible with AWS Lambda.
+Using nodejs LTS 10x images for now, mostly because I use this for AWS Lambda.
+
+### Available tags:
+
+* node:lts-alpine-build
+* node:10.16.3-alpine-build
+* node:10.17.0-alpine-build
 
 ## php
 

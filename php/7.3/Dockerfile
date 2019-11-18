@@ -5,6 +5,7 @@ LABEL maintainer="antoine@gomez.lu"
 RUN buildDeps=" \
         default-libmysqlclient-dev \
         libbz2-dev \
+        python3-pip \
     " \
     runtimeDeps=" \
         curl \
@@ -29,6 +30,7 @@ RUN buildDeps=" \
     && docker-php-ext-install gd \
     && pecl install redis \
     && docker-php-ext-enable redis.so \
+    && pip3 install awscli --upgrade \
     && apt-get purge -y --auto-remove $buildDeps \
     && rm -r /var/lib/apt/lists/*
 
