@@ -5,7 +5,6 @@ LABEL maintainer="antoine@gomez.lu"
 RUN buildDeps=" \
         default-libmysqlclient-dev \
         libbz2-dev \
-        python3-pip \
     " \
     runtimeDeps=" \
         curl \
@@ -21,6 +20,8 @@ RUN buildDeps=" \
         pkg-config \
         libbson-1.0 \
         libmongoc-1.0-0 \
+        python3-pip \
+        vim \
     " \
     && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y $buildDeps $runtimeDeps \
     && pecl install mcrypt-1.0.2 \
