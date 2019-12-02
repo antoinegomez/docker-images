@@ -2,9 +2,16 @@ server {
     listen 80 default_server;
     root ${PHP_PUBLIC_DIR};
     index index.php index.html index.htm;
+    client_max_body_size ${CLIENT_MAX_BODY_SIZE}m;
 
     access_log /dev/stdout;
     error_log /dev/stdout;
+
+    gzip ${GZIP};
+    gzip_vary ${GZIP_VARY};
+    gzip_proxied ${GZIP_PROXIED};
+    gzip_types ${GZIP_TYPES};
+    gzip_disable "MSIE [1-6]\.";
 
     location / {
         try_files $uri $uri/index.html $uri/index.htm /index.php$is_args$args;
@@ -17,6 +24,6 @@ server {
         fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
         fastcgi_param SCRIPT_NAME $fastcgi_script_name;
         fastcgi_index index.php;
-        fastcgi_pass ${PHP_HOST}:9000;
+        fastcgi_pass ${PHP_HOST}:${PHP_PORT};
     }
 }
