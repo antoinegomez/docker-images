@@ -6,12 +6,22 @@
 
 This image is meant to be used with one php application.
 
-Two ENV variables allows you to setup the root directory and host.
+Below are a list of env variables that are used in the config file with their default value.
 
 ```
-PHP_PUBLIC_DIR: /app
-PHP_HOST: app
+PHP_PUBLIC_DIR: /var/www/html
+PHP_HOST: localhost
+PHP_PORT: 9000
+GZIP: on
+GZIP_VARY: on
+GZIP_PROXIED: any
+GZIP_TYPES: text/plain text/css text/xml text/javascript application/javascript application/x-javascript application/xml application/json
+CLIENT_MAX_BODY_SIZE: 1
 ```
+
+### Available tags:
+
+`antoinegomez/nginx:latest`
 
 ## nodejs
 
@@ -26,9 +36,11 @@ Using nodejs LTS 10x images for now, mostly because I use this for AWS Lambda.
 
 ### Available tags:
 
-* node:lts-alpine-build
-* node:10.16.3-alpine-build
-* node:10.17.0-alpine-build
+`node:lts-alpine-build`
+
+`node:10.16.3-alpine-build`
+
+`node:10.17.0-alpine-build`
 
 ## php
 
