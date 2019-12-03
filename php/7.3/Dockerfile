@@ -23,7 +23,7 @@ RUN buildDeps=" \
         libmongoc-1.0-0 \
         python3-pip \
         vim \
-        cron python wget sudo \
+        cron python wget sudo unzip gettext-base \
     " \
     && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y $buildDeps $runtimeDeps \
     && pecl install mcrypt-1.0.2 \
@@ -42,6 +42,8 @@ RUN buildDeps=" \
 # Still need to launch python script in final image to setup config
 ADD https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setup.py /awslogs-agent-setup.py
 RUN mkdir -p /var/awslogs/conf.d
+RUN touch /var/awslogs/awslogs.conf
+RUN python /awslogs-agent-setup.py -n -r eu-west-1 -c /var/awslogs/awslogs.conf
 RUN mkdir -p /var/www/html
 RUN chown www-data:www-data /var/www/html -R
 RUN passwd -d www-data
@@ -53,5 +55,20 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 USER www-data
 ENV PATH=$PATH:/composer/vendor/bin
 
+# Test to make sure extensions are loaded correctly
 COPY php/7.3/test.php test.php
 RUN php test.php
+
+ENV FILE_UPLOADS On
+ENV MEMORY_LIMIT 32
+ENV UPLOAD_MAX_FILE_SIZE 1
+ENV POST_MAX_SIZE 1
+
+# Copy upload ini config file
+# Variables should be replaced by entrypoint script
+COPY php/7.3/php-upload.template /usr/local/etc/php/conf.d/php-upload.template
+USER root
+ENV PATH=$PATH:/composer/vendor/bin
+COPY php/7.3/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
