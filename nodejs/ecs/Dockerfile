@@ -1,0 +1,12 @@
+FROM node:10.17.0-alpine
+MAINTAINER Antoine Gomez <antoine@gomez.lu>
+
+RUN apk update && apk upgrade && \
+    apk add --no-cache \
+                   bash \
+                   python \
+                   py-pip
+RUN pip install awscli
+RUN rm /var/cache/apk/*
+WORKDIR /app
+COPY nodejs/ecs/src /app/src

@@ -69,14 +69,15 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 USER www-data
 ENV PATH=$PATH:/composer/vendor/bin
 
-# Test to make sure extensions are loaded correctly
-COPY php/7.3/test.php test.php
-RUN php test.php
-
 ENV FILE_UPLOADS On
 ENV MEMORY_LIMIT 32
 ENV UPLOAD_MAX_FILE_SIZE 1
 ENV POST_MAX_SIZE 1
+ENV MAX_INPUT_VARS 1000
+
+# Test to make sure extensions are loaded correctly
+COPY php/7.3/test.php test.php
+RUN php test.php
 
 # Copy upload ini config file
 # Variables should be replaced by entrypoint script
