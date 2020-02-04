@@ -10,3 +10,4 @@ RUN pip install awscli
 RUN rm /var/cache/apk/*
 WORKDIR /app
 COPY nodejs/ecs/src /app/src
+RUN mkdir -p app/src && ln -s /app/src/run.sh app/src/run.sh
