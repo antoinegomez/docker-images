@@ -1,4 +1,4 @@
-FROM node:10.17.0-alpine
+FROM node:12.16.1-alpine
 MAINTAINER Antoine Gomez <antoine@gomez.lu>
 
 RUN apk update && apk upgrade && \
