@@ -3,6 +3,7 @@ stages:
 
 variables:
   AWS_DEFAULT_REGION: eu-west-1
+  DOCKER_TLS_CERTDIR: ""
 
 image: antoinegomez/docker:latest
 
@@ -15,7 +16,6 @@ image: antoinegomez/docker:latest
   variables:
     DOCKER_DRIVER: overlay2
     DOCKER_HOST: tcp://docker:2375/
-    DOCKER_TLS_CERTDIR: ""
   services:
     - name: docker:dind
       entrypoint: ["env", "-u", "DOCKER_HOST"]
@@ -31,6 +31,24 @@ build_kong:
     NAME: kong
     TAG: latest
     DOCKERFILE: kong/Dockerfile
-    DOCKER_DRIVER: overlay2
-    DOCKER_HOST: tcp://docker:2375/
-    DOCKER_TLS_CERTDIR: ""
+
+build_php:
+  <<: *build_template
+  variables:
+    NAME: php
+    TAG: 7.3-fpm
+    DOCKERFILE: php/7.3/Dockerfile
+
+build_ecs:
+  <<: *build_template
+  variables:
+    NAME: ecs-updater
+    TAG: latest
+    DOCKERFILE: nodes/ecs/Dockerfile
+
+build_nodejs_build:
+  <<: *build_template
+  variables:
+    NAME: node
+    TAG: 12.16.1-alpine-build
+    DOCKERFILE: nodes/alpine-build/Dockerfile
