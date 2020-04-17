@@ -32,3 +32,4 @@ build_kong:
     TAG: latest
     DOCKERFILE: kong/Dockerfile
     DOCKER_DRIVER: overlay2
+    DOCKER_HOST: tcp://docker:2375/
