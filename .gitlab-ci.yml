@@ -33,3 +33,4 @@ build_kong:
     DOCKERFILE: kong/Dockerfile
     DOCKER_DRIVER: overlay2
     DOCKER_HOST: tcp://docker:2375/
+    DOCKER_TLS_CERTDIR: ""
