@@ -76,14 +76,14 @@ ENV POST_MAX_SIZE 1
 ENV MAX_INPUT_VARS 1000
 
 # Test to make sure extensions are loaded correctly
-COPY php/7.3/test.php test.php
+COPY ./test.php test.php
 RUN php test.php
 
 # Copy upload ini config file
 # Variables should be replaced by entrypoint script
-COPY php/7.3/php-upload.template /usr/local/etc/php/conf.d/php-upload.template
+COPY ./php-upload.template /usr/local/etc/php/conf.d/php-upload.template
 USER root
 ENV PATH=$PATH:/composer/vendor/bin
-COPY php/7.3/entrypoint.sh /entrypoint.sh
+COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]

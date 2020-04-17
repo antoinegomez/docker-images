@@ -1,0 +1,26 @@
+stages:
+  - build
+
+image: antoinegomez/docker:latest
+
+.build_template: &build_template
+  stage: build
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_TLS_CERTDIR: ""
+  services:
+    - name: docker:dind
+      entrypoint: ["env", "-u", "DOCKER_HOST"]
+      command: ["dockerd-entrypoint.sh"]
+  script:
+    - export DOCKERFILE NAME TAG AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY
+    - $(aws ecr get-login --no-include-email)
+    - ./build.sh
+
+build_kong:
+  <<: *build_template
+  variables:
+    NAME: kong
+    TAG: latest
+    DOCKERFILE: kong/Dockerfile

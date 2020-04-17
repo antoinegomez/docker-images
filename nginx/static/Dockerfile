@@ -5,5 +5,5 @@ RUN pip3 install awscli --upgrade
 COPY docker/entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 COPY silent-check-sso.html /usr/share/nginx/html
-COPY docker/default.template /etc/nginx/conf.d/default.template
+COPY ./default.template /etc/nginx/conf.d/default.template
 CMD ["nginx", "-g", "daemon off;"]
