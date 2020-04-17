@@ -1,9 +1,13 @@
 stages:
   - build
 
+variables:
+  AWS_DEFAULT_REGION: eu-west-1
+
 image: antoinegomez/docker:latest
 
 .build_template: &build_template
+  when: manual
   only:
     - master
     - tag
@@ -17,7 +21,7 @@ image: antoinegomez/docker:latest
       entrypoint: ["env", "-u", "DOCKER_HOST"]
       command: ["dockerd-entrypoint.sh"]
   script:
-    - export DOCKERFILE NAME TAG AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY
+    - export DOCKERFILE NAME TAG AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_DEFAULT_REGION
     - $(aws ecr get-login --no-include-email)
     - ./build.sh
 
