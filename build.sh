@@ -2,7 +2,7 @@
 
 set -e
 
-[ -f .env ] && export $(cat .env | sed 's/#.*//g' | xargs)
+[ -z "$DOCKER_REPOSITORY" ] && echo "missing DOCKER_REPOSITORY variable" && exit 1
 [ -z "$DOCKERFILE" ] && echo "missing DOCKERFILE variable" && exit 1
 [ -z "$NAME" ] && echo "missing DOCKER_PATH variable" && exit 1
 [ -z "$TAG" ] && echo "missing TAG variable" && exit 1
