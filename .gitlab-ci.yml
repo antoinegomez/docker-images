@@ -44,11 +44,11 @@ build_ecs:
   variables:
     NAME: ecs-updater
     TAG: latest
-    DOCKERFILE: nodes/ecs/Dockerfile
+    DOCKERFILE: nodejs/ecs/Dockerfile
 
 build_nodejs_build:
   <<: *build_template
   variables:
     NAME: node
     TAG: 12.16.1-alpine-build
-    DOCKERFILE: nodes/alpine-build/Dockerfile
+    DOCKERFILE: nodejs/alpine-build/Dockerfile
