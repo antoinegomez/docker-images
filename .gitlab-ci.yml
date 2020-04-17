@@ -4,6 +4,9 @@ stages:
 image: antoinegomez/docker:latest
 
 .build_template: &build_template
+  only:
+    - master
+    - tag
   stage: build
   variables:
     DOCKER_DRIVER: overlay2
