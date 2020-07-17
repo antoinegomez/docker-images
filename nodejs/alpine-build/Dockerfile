@@ -1,4 +1,4 @@
-FROM node:12.16.1-alpine
+FROM node:12-alpine
 MAINTAINER Antoine Gomez <antoine@gomez.lu>
 
 RUN apk update && apk upgrade && \
@@ -9,6 +9,7 @@ apk add --no-cache build-base \
                    git \
                    openssh \
                    python \
+                   openjdk8-jre \
                    mysql-client \
                    redis \
                    libpng-dev \
